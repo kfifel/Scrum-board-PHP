@@ -115,9 +115,6 @@ function addUserStory(userStory) {
 }
 
 function updateDataInHtml(){
-    document.getElementById('to-do-tasks').innerHTML = "";
-    document.getElementById('in-progress-tasks').innerHTML = "";
-    document.getElementById('done-tasks').innerHTML = "";
 
     toDoCount = 0;
     inProgressCount = 0;
