@@ -1,6 +1,6 @@
 <?php
     //INCLUDE DATABASE FILE
-   include('database.php');
+    $conn = include('database.php');
 
     //SESSSION IS A WAY TO STORE DATA TO BE USED ACROSS MULTIPLE PAGES
     session_start();
@@ -24,7 +24,7 @@
     {
         //CODE HERE
         //SQL INSERT
-        $req = "INSERT INTO `tasks` (`title`, `type`, `priority`, `status`, `date`, `description` ) 
+        $req = "INSERT INTO `tasks` (`title`, `type_id`, `priority_id`, `status_id`, `task_datetime`, `description` ) 
                 VALUES  ( ?, ?, ?, ?, ?, ?)";
         $nvTask = getFormData();
         $res = $GLOBALS['conn']->prepare($req);
@@ -64,12 +64,12 @@
         settype($status, 'integer');
 
         return array(
-            "title"         => mysqli_real_escape_string($GLOBALS['conn'], $_POST['title'] ),
-            "type"          => mysqli_real_escape_string($GLOBALS['conn'], $type ) ,
-            "priority"      => mysqli_real_escape_string($GLOBALS['conn'], $priority ),
-            "status"        => mysqli_real_escape_string($GLOBALS['conn'], $status ),
-            "date"          => mysqli_real_escape_string($GLOBALS['conn'], $_POST['date'] ),
-            "description"   => mysqli_real_escape_string($GLOBALS['conn'], $_POST['description'] )
+            mysqli_real_escape_string($GLOBALS['conn'], $_POST['title'] ),
+            $type,
+            $priority,
+            $status,
+            mysqli_real_escape_string($GLOBALS['conn'], $_POST['date'] ),
+            mysqli_real_escape_string($GLOBALS['conn'], $_POST['description'] )
         );
     }
 

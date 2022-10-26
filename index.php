@@ -151,17 +151,17 @@
 						</div>
 						<div class="form-group">
 							<label for="Date" class="col-form-label">Date:</label>
-							<input type="date" id="Date" name="Date" class="form-control">
+							<input type="date" id="Date" name="date" class="form-control">
  						</div>
 						<div class="form-group">
 							<label for="Description" class="col-form-label">Description:</label>
-							<textarea class="form-control" id="Description"></textarea>
+							<textarea class="form-control" name="description" id="Description"></textarea>
 						</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="close" onclick="closePopup()">Cancel</button>
+                            <button type="submit" name="save" class="btn pink text-white" id="0" >Save</button>
+                        </div>
 					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="close" onclick="closePopup()">Cancel</button>
-					<button type="submit" name="save" class="btn pink text-white" id="0" >Save</button>
 				</div>
 			</div>
 		</div>
