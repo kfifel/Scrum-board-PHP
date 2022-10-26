@@ -5,9 +5,11 @@ let toDoCount = 0;
 let inProgressCount = 0;
 let doneCount = 0;
 
+/*
     for(let task of tasks){
         userStroys.set(++id,task)
     }
+*/
     updateDataInHtml();
 
 function save(idAModifier){
@@ -29,39 +31,14 @@ function save(idAModifier){
         }
 }
 
-function formData(idAModifier) {
-
-    if(typeof idAModifier  == "undefined") {
-        return {
-            id: ++id,
-            title: document.getElementById("title").value,
-            type: document.querySelector('input[type="radio"]:checked').value,
-            priority: document.getElementById("Priority").value,
-            status: document.getElementById("Status").value,
-            date: document.getElementById("Date").value,
-            description: document.getElementById("Description").value
-        }
-    }else{
-        return {
-            id: idAModifier,
-            title: document.getElementById("title").value,
-            type: document.querySelector('input[type="radio"]:checked').value,
-            priority: document.getElementById("Priority").value,
-            status: document.getElementById("Status").value,
-            date: document.getElementById("Date").value,
-            description: document.getElementById("Description").value
-        }
-    }
-}
-
 function resetForm(){
-    $("#form").trigger( "reset" )
+    $("#form").trigger( "reset")
     document.getElementById("headerH5").innerText = "Add task"
     document.getElementById("0").innerText= "save"
-    document.getElementById("0").setAttribute("onclick", "save()")
 }
 
 function addUserStory(userStory) {
+
         if(userStory.status === "to do"){
             toDoCount++;
             document.getElementById('to-do-tasks').innerHTML+=`
