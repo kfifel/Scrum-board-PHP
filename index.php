@@ -1,3 +1,6 @@
+<?php
+    include('scripts.php');
+?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -96,10 +99,13 @@
 	
 	<!-- TASK MODAL -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div>
+            <?=$_SESSION['message']?>
+        </div>
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 id="headerH5">add task</h5>
+					<h5 id="headerH5">add task <?=$_SESSION['message']?></h5>
 					<button type="button" class="btn close" data-dismiss="modal" aria-label="Close" onclick="closePopup()" id="closePopup">
 						<i class="bi bi-x-lg"></i>
 					</button>
@@ -108,20 +114,20 @@
 					<div id="alertAdd">
 
 					</div>
-					<form id="form">
+					<form id="form" action="" method="post">
 						<div class="form-group">
 							<label for="title" class="col-form-label">Title:</label>
-							<input type="text" class="form-control" id="title" placeholder="title">
+							<input type="text" class="form-control" name="title" id="title" placeholder="title">
 						</div>
 						<div class="form-group">
 							<div class="form-check mt-2">
-								<input class="form-check-input" type="radio" name="type" id="typeFeature" value="Feature" checked>
+								<input class="form-check-input" type="radio" name="type" id="typeFeature" value="1" checked>
 								<label class="form-check-label" for="typeFeature">
 									Feature
 								</label>
 							</div>
 							<div class="form-check">
-								<input class="form-check-input" type="radio" name="type" id="typeBug" value="Bug">
+								<input class="form-check-input" type="radio" name="type" id="typeBug" value="2">
 								<label class="form-check-label" for="typeBug">
 									Bug
 								</label>
@@ -129,18 +135,18 @@
 						</div>
 						<div class="form-group">
 							<label for="Priority" class="col-form-label">Priority:</label>
-							<select class="form-select" id="Priority">
-								<option>High</option>
-								<option>Medium</option>
-								<option>Low</option>
+							<select class="form-select" name="priority" id="Priority">
+								<option value="1">High</option>
+								<option value="2">Medium</option>
+								<option value="3">Low</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="Status" class="col-form-label">Status:</label>
-							<select class="form-select" id="Status">
-								<option>to do</option>
-								<option>in progress</option>
-								<option>done</option>
+							<select class="form-select" name="status" id="Status">
+								<option value="1">to do</option>
+								<option value="2">in progress</option>
+								<option value="3">done</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -155,7 +161,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="close" onclick="closePopup()">Cancel</button>
-					<button type="submit" class="btn pink text-white" id="0" onclick="save()">Save</button>
+					<button type="submit" name="save" class="btn pink text-white" id="0" >Save</button>
 				</div>
 			</div>
 		</div>
