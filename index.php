@@ -21,7 +21,6 @@
 	<!-- ================== END core-css ================== -->
 </head>
 <body>
-
 	<!-- BEGIN #app -->
 	<div id="app" class="app-without-sidebar">
 		<!-- BEGIN #content -->
@@ -40,13 +39,15 @@
 				</div>
 
 				<div class="">
-					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" type="button" data-toggle="modal" data-target="#exampleModal" onclick="resetForm()">
+					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" type="button" data-toggle="modal" data-target="#save-tasks" >
 						<i class="bx bx-plus"></i>
 						<span class="d-none d-md-inline">
 							Add task
 						</span>
 					</button>
-				</div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#save-tasks" data-whatever="@mdo">Open modal for @mdo</button>
+
+                </div>
 			</div>
 			
 			<div class="row">
@@ -54,11 +55,22 @@
 					<div class="card mb-5">
 						<div class="card-header bg-teal-900 rounded-lg">
 							<h4 class="">To do (<span id="to-do-tasks-count">0</span>)</h4>
+                            <form action="" method="post">
+                                <button type="submit" name="getTasks" class="btn pink text-white" id="0" >Refresh</button>
+
+                            </form>
 
 						</div>
 						<div class="card-body" id="to-do-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropToDo(event)" ondragleave="onDragLeave()">
 							<!-- TO DO TASKS HERE -->
+                            <?php
 
+                            echo  "<pre>";
+                                Return_Values($GLOBALS['tasks']);
+                            echo  "</pre>";
+
+
+                            ?>
 						</div>
 					</div>
 				</div>
@@ -70,6 +82,7 @@
 						</div>
 						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropInProgress(event)" ondragleave="onDragLeave()">
 							<!-- IN PROGRESS TASKS HERE -->
+
 
 						</div>
 					</div>
@@ -98,10 +111,7 @@
 	<!-- END #app -->
 	
 	<!-- TASK MODAL -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div>
-            <?=$_SESSION['message']?>
-        </div>
+	<div class="modal fade" id="save-tasks" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -168,12 +178,13 @@
 	</div>
 
 
+
 	<!-- ================== BEGIN core-js ================== -->
 	<script src="assets/js/vendor.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.2/dist/sweetalert2.all.min.js"></script>
 	<script src="assets/data/data.js"></script>
-	<script src="assets/js/main.js"></script>
 	<script src="assets/js/app.min.js"></script>
+    <script src="assets/js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 

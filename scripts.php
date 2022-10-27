@@ -1,22 +1,36 @@
 <?php
     //INCLUDE DATABASE FILE
-    $conn = include('database.php');
+    include('database.php');
 
     //SESSSION IS A WAY TO STORE DATA TO BE USED ACROSS MULTIPLE PAGES
     session_start();
 
+    $tasks= array();
     //ROUTING
     if(isset($_POST['save']))        saveTask();
     if(isset($_POST['update']))      updateTask();
     if(isset($_POST['delete']))      deleteTask();
-    
+    getTasks();
+
+    function Return_Values($array)
+    {
+        return (array_values($array));
+    }
 
     function getTasks()
     {
         //CODE HERE
         //SQL SELECT
-        $req = "";
-        echo "Fetch all tasks";
+        $req = "SELECT tasks.id ,  tasks.title, types.name as type, priorities.name as priority, status.name as status, tasks.task_datetime, tasks.description
+                FROM tasks
+                    join status on tasks.status_id = status.id
+                    join types on tasks.type_id = 	types.id
+                    join priorities	 on tasks.priority_id = priorities.id";
+        $res =  mysqli_query($GLOBALS['conn'], $req);
+
+        while( $tasks = mysqli_fetch_assoc( $res)){
+            $GLOBALS['tasks'][] = $tasks;
+        }
     }
 
 
@@ -33,6 +47,7 @@
         if($res->execute()){
             $_SESSION['message'] = "Task has been added successfully !";
             header('location: index.php');
+            echo '<script type="text/javascript"></script> ';
         }else{
             $_SESSION['message'] = "Task has not been added successfully error detected ";
         }

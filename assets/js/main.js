@@ -136,7 +136,7 @@ function editUserStory(id){
         confirmButtonColor: '#d33',
         denyButtonColor: '#38c00b',
         cancelButtonColor: '#3085d6',
-        denyButtonText: `Modify`,
+        denyButtonText: "<a href=''>hi</a>",
         confirmButtonText: 'delete!'
     }).then(async (result) => {
         if (result.isConfirmed) {
