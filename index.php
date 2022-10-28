@@ -66,10 +66,13 @@
 							<!-- TO DO TASKS HERE -->
                             <?php
 
-                            echo  "<pre>";
-                               print_r(  array_values($GLOBALS['tasks']));
-                            echo  "</pre>";
-
+                             for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
+                                 if($GLOBALS['tasks'][$i]['status'] === 'to do'){
+                                     echo '<pre>';
+                                     echo $GLOBALS['tasks'][$i]['id'];
+                                     echo '</pre>';
+                                 }
+                             }
 
                             ?>
 						</div>
@@ -85,10 +88,13 @@
 							<!-- IN PROGRESS TASKS HERE -->
 
                             <?php
-                            echo  "<pre>";
-                            foreach(  array_values($GLOBALS['tasks']) as $row)
-                                print_r($row);
-                            echo  "</pre>";
+                            for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
+                                if($GLOBALS['tasks'][$i]['status'] === 'in progress'){
+                                    echo '<pre>';
+                                    echo $GLOBALS['tasks'][$i]['id'];
+                                    echo '</pre>';
+                                }
+                            }
                             ?>
 						</div>
 					</div>
@@ -100,7 +106,15 @@
 						</div>
 						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropDone(event)" ondragleave="onDragLeave()">
 							<!-- DONE TASKS HERE -->
-
+                            <?php
+                                for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
+                                    if($GLOBALS['tasks'][$i]['status'] === 'done'){
+                                        echo '<pre>';
+                                        echo $GLOBALS['tasks'][$i]['id'];
+                                        echo '</pre>';
+                                    }
+                                }
+                            ?>
 						</div>
 					</div>
 				</div>

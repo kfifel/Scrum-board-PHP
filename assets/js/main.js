@@ -160,6 +160,7 @@ function editUserStory(id){
                 }
             })
         } else if (result.dismiss === Swal.DismissReason.cancel) {
+            window.location.href = `index.php?id=2`
             swal.fire(
                 'Cancelled',
                 'Your imaginary file is safe :)',
