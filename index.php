@@ -30,6 +30,7 @@
 					<ol class="breadcrumb">
 						<li class=" breadcrumb-item"><a href="javascript:;">Home</a></li>
 						<li class=" breadcrumb-item active">Scrum Board </li>
+                        <a href="index.php?id=2">clic ici</a>
 					</ol>
 					<!-- BEGIN page-header -->
 					<h1 class="page-header">
@@ -66,7 +67,7 @@
                             <?php
 
                             echo  "<pre>";
-                                Return_Values($GLOBALS['tasks']);
+                               print_r(  array_values($GLOBALS['tasks']));
                             echo  "</pre>";
 
 
@@ -83,7 +84,12 @@
 						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropInProgress(event)" ondragleave="onDragLeave()">
 							<!-- IN PROGRESS TASKS HERE -->
 
-
+                            <?php
+                            echo  "<pre>";
+                            foreach(  array_values($GLOBALS['tasks']) as $row)
+                                print_r($row);
+                            echo  "</pre>";
+                            ?>
 						</div>
 					</div>
 				</div>

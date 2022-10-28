@@ -1,7 +1,9 @@
 <?php
     //INCLUDE DATABASE FILE
     include('database.php');
-
+    if(isset($_GET['id'])){
+        echo "<script>alert('hi')</script>";
+    }
     //SESSSION IS A WAY TO STORE DATA TO BE USED ACROSS MULTIPLE PAGES
     session_start();
 
@@ -12,10 +14,6 @@
     if(isset($_POST['delete']))      deleteTask();
     getTasks();
 
-    function Return_Values($array)
-    {
-        return (array_values($array));
-    }
 
     function getTasks()
     {
