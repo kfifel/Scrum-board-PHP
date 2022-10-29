@@ -86,21 +86,39 @@ function getTasks()
         );
     }
 
-    $GLOBALS['conn']= null;
 
-function getTasksById($id){
-    if(!empty($id) && is_int($id)){
-        $req = "SELECT tasks.id ,  tasks.title, types.name as type, priorities.name as priority, status.name as status,
-                tasks.task_datetime as date, tasks.description
-                FROM tasks
-                     join status on tasks.status_id = status.id
-                     join types on tasks.type_id = 	types.id
-                     join priorities	 on tasks.priority_id = priorities.id
-                        where tasks.id = 10";
+    function getTasksById($id){
+        $id = (int)$id;
+        if(!empty($id)){
+            $req = "SELECT tasks.id ,  tasks.title, type_id as type, priority_id as priority, status_id as status,
+                    tasks.task_datetime as date, tasks.description
+                    FROM tasks where tasks.id = $id";
 
-        $res =  mysqli_query($GLOBALS['conn'], $req);
-        while( $row = mysqli_fetch_assoc( $res)){
-            return $row;
+            $res =  mysqli_query($GLOBALS['conn'], $req);
+            return mysqli_fetch_assoc( $res);
+
         }
     }
-}
+
+    function editTask(){
+        $id = $_GET['id'];
+
+        $GLOBALS['task'][] = getTasksById($id);
+    }
+
+    function countStatus($id){
+        $req = "SELECT count(id) as numberOf FROM tasks WHERE status_id = $id";
+        $res = mysqli_query($GLOBALS['conn'], $req);
+        $data=mysqli_fetch_assoc($res);
+        return $data['numberOf'];
+    }
+    function countToDo(){
+        echo countStatus(1);
+    }
+    function countInProgres(){
+        echo countStatus(2);
+    }
+    function countDone(){
+        echo countStatus(3);
+    }
+

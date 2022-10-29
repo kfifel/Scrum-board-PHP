@@ -56,7 +56,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header bg-teal-900 rounded-lg">
-							<h4 class="">To do (<span id="to-do-tasks-count">0</span>)</h4>
+							<h4 class="">To do (<span id="to-do-tasks-count"><?php countToDo()?></span>)</h4>
 
 						</div>
 						<div class="card-body" id="to-do-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropToDo(event)" ondragleave="onDragLeave()">
@@ -95,7 +95,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header">
-							<h4 class="">In Progress (<span id="in-progress-tasks-count">0</span>)</h4>
+							<h4 class="">In Progress (<span id="in-progress-tasks-count"><?php countInProgres()?></span>)</h4>
 
 						</div>
 						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropInProgress(event)" ondragleave="onDragLeave()">
@@ -105,7 +105,7 @@
                             for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
                                 if($GLOBALS['tasks'][$i]['status'] === 'in progress'){
                                 ?>
-                                    <button id="${userStory.id} " onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-blue rounded-1 pb-2 mt-1" draggable="true">
+                                    <button id=" " onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-blue rounded-1 pb-2 mt-1" draggable="true">
                                         <div class="col-1">
                                             <i class="fa fa-spinner fa-spin	 bx-xs text-primary mt-3 "></i>
                                         </div>
@@ -133,7 +133,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header">
-							<h4 class="">Done (<span id="done-tasks-count">0</span>)</h4>
+							<h4 class="">Done (<span id="done-tasks-count"><?php countDone()?></span>)</h4>
 						</div>
 						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropDone(event)" ondragleave="onDragLeave()">
 							<!-- DONE TASKS HERE -->
@@ -183,7 +183,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 id="headerH5">add task <?=$_SESSION['message']?></h5>
+					<h5 id="headerH5">add task</h5>
 					<button type="button" class="btn close" data-dismiss="modal" aria-label="Close" onclick="closePopup()" id="closePopup">
 						<i class="bi bi-x-lg"></i>
 					</button>
@@ -195,7 +195,7 @@
 					<form id="form" action="" method="post">
 						<div class="form-group">
 							<label for="title" class="col-form-label">Title:</label>
-							<input type="text" class="form-control" name="title" id="title" placeholder="title">
+							<input type="text" class="form-control" name="title" id="title" value=""<?=@$GLOBALS['task'][0]['title']?>""  placeholder="title">
 						</div>
 						<div class="form-group">
 							<div class="form-check mt-2">
@@ -229,7 +229,7 @@
 						</div>
 						<div class="form-group">
 							<label for="Date" class="col-form-label">Date:</label>
-							<input type="date" id="Date" name="date" class="form-control">
+							<input type="datetime-local" id="Date" name="date" class="form-control">
  						</div>
 						<div class="form-group">
 							<label for="Description" class="col-form-label">Description:</label>
@@ -262,14 +262,21 @@
 
 <?php
 if(isset($_GET['id'])){
-    $task = getTasksById($_GET['id']);
-    print_r($task);
-      echo '<script type="text/javascript">
-                document.getElementById("").setAttribute("onclick", "show('.$task.',)")
-            </script>';
+    editTask();
+    echo '<pre>';
+    print_r($GLOBALS['task'][0]);
+    echo '</pre>';
+   ?>
+        <script>
+            document.getElementById('headerH5').innerText='Update task';
+            document.getElementById('ourColorButton').click();
 
-    echo "<script> 
-            $('#exampleModal').modal('show');
-            document.getElementById('ourColorButton').click()
-          </script>";
-    }
+            //document.getElementById('title').value = "<?php echo $GLOBALS['task'][0]['title']?>";
+            //document.getElementById('type').value = "<?php echo $GLOBALS['task'][0]['type']?>";
+            document.getElementById('Status').value = "<?=$GLOBALS['task'][0]['status']?>";
+            document.getElementById('Priority').value = "<?=$GLOBALS['task'][0]['priority']?>";
+            document.getElementById('Date').value = "<?=$GLOBALS['task'][0]['date']?>";
+            document.getElementById('Description').value = "<?php echo $GLOBALS['task'][0]['description']?>";
+        </script>;
+<?php
+}
