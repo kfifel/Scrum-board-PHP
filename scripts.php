@@ -1,25 +1,25 @@
 <?php
     //INCLUDE DATABASE FILE
     include('database.php');
-    if(isset($_GET['id'])){
-        echo "<script>alert('hi')</script>";
-    }
     //SESSSION IS A WAY TO STORE DATA TO BE USED ACROSS MULTIPLE PAGES
     session_start();
 
     $tasks= array();
-    //ROUTING
-    if(isset($_POST['save']))        saveTask();
-    if(isset($_POST['update']))      updateTask();
-    if(isset($_POST['delete']))      deleteTask();
-    getTasks();
+//ROUTING
+getTasks();
+if(isset($_POST['save']))        saveTask();
+if(isset($_POST['update']))      updateTask();
+if(isset($_POST['delete']))      deleteTask();
 
 
-    function getTasks()
+
+
+function getTasks()
     {
         //CODE HERE
         //SQL SELECT
-        $req = "SELECT tasks.id ,  tasks.title, types.name as type, priorities.name as priority, status.name as status, tasks.task_datetime, tasks.description
+        $req = "SELECT tasks.id ,  tasks.title, types.name as type, priorities.name as priority, status.name as status,
+                tasks.task_datetime as date, tasks.description
                 FROM tasks
                     join status on tasks.status_id = status.id
                     join types on tasks.type_id = 	types.id
@@ -87,4 +87,20 @@
     }
 
     $GLOBALS['conn']= null;
-?>
+
+function getTasksById($id){
+    if(!empty($id) && is_int($id)){
+        $req = "SELECT tasks.id ,  tasks.title, types.name as type, priorities.name as priority, status.name as status,
+                tasks.task_datetime as date, tasks.description
+                FROM tasks
+                     join status on tasks.status_id = status.id
+                     join types on tasks.type_id = 	types.id
+                     join priorities	 on tasks.priority_id = priorities.id
+                        where tasks.id = 10";
+
+        $res =  mysqli_query($GLOBALS['conn'], $req);
+        while( $row = mysqli_fetch_assoc( $res)){
+            return $row;
+        }
+    }
+}

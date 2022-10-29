@@ -32,83 +32,12 @@ function save(idAModifier){
 }
 
 function resetForm(){
-    $("#form").trigger( "reset")
+    $("#form").trigger( "reset");
     document.getElementById("headerH5").innerText = "Add task"
     document.getElementById("0").innerText= "save"
 }
 
 function addUserStory(userStory) {
-
-        if(userStory.status === "to do"){
-            toDoCount++;
-            document.getElementById('to-do-tasks').innerHTML+=`
-                 <button id="${userStory.id} " onclick="editUserStory(${userStory.id})" class="d-flex userStoryCard w-100 alert-black rounded-1 mt-1 pb-2" draggable="true">
-                     <div class="col-1">
-                         <i class="bi bi-exclamation-octagon bx-xs text-red-700"></i>
-                     </div>
-                     <div class="col-11 text-start">
-                         <div class="">${userStory.title}</div>
-                             <div class="">
-                                 <div class="text-black-100">#${userStory.id} created in ${userStory.date}</div>
-                                 <div class="" title="${userStory.description}">
-                                    ${ (userStory.description).length > 80 ?  userStory.description.substring(0, 80)+'...' : userStory.description }
-                                 </div>
-                             </div>
-                             <div class="mt-1">
-                                  <span class="bg-gradient-blue-purple rounded-2 p-1 text-white">${userStory.priority}</span>
-                                  <span class="bg-black-100 rounded-2 p-1 text-white">${userStory.type}</span>
-                             </div>
-                     </div>
-                 </button>
-            `;
-        }
-        else if(userStory.status === "in progress"){
-            inProgressCount++;
-            document.getElementById('in-progress-tasks').innerHTML+=`
-                <button id="${userStory.id}" onclick="editUserStory(${userStory.id})"  class="d-flex userStoryCard w-100 alert-blue rounded-1 pb-2 mt-1" draggable="true">
-                     <div class="col-1">
-                         <i class="fa fa-spinner fa-spin\t bx-xs text-primary mt-3 "></i>
-                     </div>
-                     <div class="col-11 text-start">
-                         <div class="">${userStory.title}</div>
-                             <div class="">
-                                 <div class="text-muted">#${userStory.id} created in ${userStory.date}</div>
-                                 <div class="" title="${userStory.description}">
-                                    ${ (userStory.description).length > 80 ?  userStory.description.substring(0, 80)+'...' : userStory.description }
-                                 </div>
-                             </div>
-                             <div class="mt-1">
-                                  <span class="bg-gradient-blue-purple rounded-2 p-1 text-white">${userStory.priority}</span>
-                                  <span class="bg-black-100 rounded-2 p-1 text-white">${userStory.type}</span>
-                             </div>
-                     </div>
-                 </button>
-            `;
-
-        }else{
-            doneCount++;
-            document.getElementById('done-tasks').innerHTML+=`
-                <button id="${userStory.id}" onclick="editUserStory(${userStory.id})"  class="d-flex userStoryCard w-100 alert-green rounded-1 pb-2 mt-1" draggable="true">
-                     <div class="col-1">
-                         <i class="bx bx-check-circle bx-sm text-green mt-3"></i>
-                     </div>
-                     <div class="col-11 text-start">
-                         <div class="">${userStory.title}</div>
-                             <div class="">
-                                 <div class="text-muted">#${userStory.id} created in ${userStory.date}</div>
-                                 <div class="" title="${userStory.description}">
-                                    ${ (userStory.description).length > 80 ?  userStory.description.substring(0, 80)+'...' : userStory.description }
-                                 </div>
-                             </div>
-                             <div class="mt-1">
-                                  <span class="bg-gradient-blue-purple rounded-2 p-1 text-white">${userStory.priority}</span>
-                                  <span class="bg-black-100 rounded-2 p-1 text-white">${userStory.type}</span>
-                             </div>
-                     </div>
-                 </button>
-            `;
-    }
-
     document.getElementById('to-do-tasks-count').innerText = toDoCount;
     document.getElementById('in-progress-tasks-count').innerText = inProgressCount;
     document.getElementById('done-tasks-count').innerText = doneCount;
@@ -125,7 +54,6 @@ function updateDataInHtml(){
 }
 
 function editUserStory(id){
-    let userStorySelect = findById(id);
 
     Swal.fire({
         title: 'Chose an action?',
@@ -136,7 +64,7 @@ function editUserStory(id){
         confirmButtonColor: '#d33',
         denyButtonColor: '#38c00b',
         cancelButtonColor: '#3085d6',
-        denyButtonText: "<a href=''>hi</a>",
+        denyButtonText: "<a href='../../index.php?id="+id+"'>Edit</a>",
         confirmButtonText: 'delete!'
     }).then(async (result) => {
         if (result.isConfirmed) {
@@ -160,7 +88,6 @@ function editUserStory(id){
                 }
             })
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            window.location.href = `index.php?id=2`
             swal.fire(
                 'Cancelled',
                 'Your imaginary file is safe :)',

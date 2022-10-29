@@ -30,7 +30,6 @@
 					<ol class="breadcrumb">
 						<li class=" breadcrumb-item"><a href="javascript:;">Home</a></li>
 						<li class=" breadcrumb-item active">Scrum Board </li>
-                        <a href="index.php?id=2">clic ici</a>
 					</ol>
 					<!-- BEGIN page-header -->
 					<h1 class="page-header">
@@ -40,26 +39,24 @@
 				</div>
 
 				<div class="">
-					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" type="button" data-toggle="modal" data-target="#save-tasks" >
+					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" id="ourColorButton" type="button" data-toggle="modal" data-target="#save-tasks" >
 						<i class="bx bx-plus"></i>
 						<span class="d-none d-md-inline">
 							Add task
 						</span>
 					</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#save-tasks" data-whatever="@mdo">Open modal for @mdo</button>
 
                 </div>
 			</div>
 			
 			<div class="row">
+                <form action="" method="post">
+                    <button type="submit" name="getTasks" class="btn  rounded-3 text-primary" id="0" ><i class="fa fa-refresh fa-xl"></i></button>
+                </form>
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header bg-teal-900 rounded-lg">
 							<h4 class="">To do (<span id="to-do-tasks-count">0</span>)</h4>
-                            <form action="" method="post">
-                                <button type="submit" name="getTasks" class="btn pink text-white" id="0" >Refresh</button>
-
-                            </form>
 
 						</div>
 						<div class="card-body" id="to-do-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropToDo(event)" ondragleave="onDragLeave()">
@@ -68,9 +65,26 @@
 
                              for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
                                  if($GLOBALS['tasks'][$i]['status'] === 'to do'){
-                                     echo '<pre>';
-                                     echo $GLOBALS['tasks'][$i]['id'];
-                                     echo '</pre>';
+                                     ?>
+                                     <button id="${userStory.id} " onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-black rounded-1 mt-1 pb-2" draggable="true">
+                                         <div class="col-1">
+                                             <i class="bi bi-exclamation-octagon bx-xs text-red-700"></i>
+                                         </div>
+                                         <div class="col-11 text-start">
+                                             <div class=""><?=$GLOBALS['tasks'][$i]['title']?></div>
+                                             <div class="">
+                                                 <div class="text-black-100">#<?=$GLOBALS['tasks'][$i]['id']?> created in <?=$GLOBALS['tasks'][$i]['date']?>.</div>
+                                                 <div class="" title="<?=$GLOBALS['tasks'][$i]['description']?>">
+                                                     <?php echo (strlen($GLOBALS['tasks'][$i]['description']) > 80)? substr($GLOBALS['tasks'][$i]['description'], 0, 70)."..." : $GLOBALS['tasks'][$i]['description'];   ?>
+                                                 </div>
+                                             </div>
+                                             <div class="mt-1">
+                                                 <span class="bg-gradient-blue-purple rounded-2 p-1 text-white"><?=$GLOBALS['tasks'][$i]['priority']?></span>
+                                                 <span class="bg-black-100 rounded-2 p-1 text-white"><?=$GLOBALS['tasks'][$i]['type']?></span>
+                                             </div>
+                                         </div>
+                                     </button>
+                                     <?php
                                  }
                              }
 
@@ -90,9 +104,26 @@
                             <?php
                             for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
                                 if($GLOBALS['tasks'][$i]['status'] === 'in progress'){
-                                    echo '<pre>';
-                                    echo $GLOBALS['tasks'][$i]['id'];
-                                    echo '</pre>';
+                                ?>
+                                    <button id="${userStory.id} " onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-blue rounded-1 pb-2 mt-1" draggable="true">
+                                        <div class="col-1">
+                                            <i class="fa fa-spinner fa-spin	 bx-xs text-primary mt-3 "></i>
+                                        </div>
+                                        <div class="col-11 text-start">
+                                            <div class=""><?=$GLOBALS['tasks'][$i]['title']?></div>
+                                            <div class="">
+                                                <div class="text-muted">#<?=$GLOBALS['tasks'][$i]['id']?> created in <?=$GLOBALS['tasks'][$i]['date']?>.</div>
+                                                <div class="" title="<?=$GLOBALS['tasks'][$i]['description']?>">
+                                                    <?php echo (strlen($GLOBALS['tasks'][$i]['description']) > 80)? substr($GLOBALS['tasks'][$i]['description'], 0, 70)."..." : $GLOBALS['tasks'][$i]['description'];   ?>
+                                                </div>
+                                            </div>
+                                            <div class="mt-1">
+                                                <span class="bg-gradient-blue-purple rounded-2 p-1 text-white"><?=$GLOBALS['tasks'][$i]['priority']?></span>
+                                                <span class="bg-black-100 rounded-2 p-1 text-white"><?=$GLOBALS['tasks'][$i]['type']?></span>
+                                            </div>
+                                        </div>
+                                    </button>
+                            <?php
                                 }
                             }
                             ?>
@@ -109,9 +140,26 @@
                             <?php
                                 for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
                                     if($GLOBALS['tasks'][$i]['status'] === 'done'){
-                                        echo '<pre>';
-                                        echo $GLOBALS['tasks'][$i]['id'];
-                                        echo '</pre>';
+                                        ?>
+                                        <button id="${userStory.id} " onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-green rounded-1 pb-2 mt-1" draggable="true">
+                                            <div class="col-1">
+                                                <i class="bx bx-check-circle bx-sm text-green mt-3"></i>
+                                            </div>
+                                            <div class="col-11 text-start">
+                                                <div class=""><?=$GLOBALS['tasks'][$i]['title']?></div>
+                                                <div class="">
+                                                    <div class="text-black-100">#<?=$GLOBALS['tasks'][$i]['id']?> created in <?=$GLOBALS['tasks'][$i]['date']?>.</div>
+                                                    <div class="" title="<?=$GLOBALS['tasks'][$i]['description']?>">
+                                                        <?php echo (strlen($GLOBALS['tasks'][$i]['description']) > 80)? substr($GLOBALS['tasks'][$i]['description'], 0, 70)."..." : $GLOBALS['tasks'][$i]['description'];   ?>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-1">
+                                                    <span class="bg-gradient-blue-purple rounded-2 p-1 text-white"><?=$GLOBALS['tasks'][$i]['priority']?></span>
+                                                    <span class="bg-black-100 rounded-2 p-1 text-white"><?=$GLOBALS['tasks'][$i]['type']?></span>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <?php
                                     }
                                 }
                             ?>
@@ -211,3 +259,17 @@
 	<!-- ================== END core-js ================== -->
 </body>
 </html>
+
+<?php
+if(isset($_GET['id'])){
+    $task = getTasksById($_GET['id']);
+    print_r($task);
+      echo '<script type="text/javascript">
+                document.getElementById("").setAttribute("onclick", "show('.$task.',)")
+            </script>';
+
+    echo "<script> 
+            $('#exampleModal').modal('show');
+            document.getElementById('ourColorButton').click()
+          </script>";
+    }
