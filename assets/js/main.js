@@ -33,6 +33,7 @@ function save(idAModifier){
 
 function resetForm(){
     $("#form").trigger( "reset");
+    document.getElementById("0").setAttribute("name", "save");
     document.getElementById("headerH5").innerText = "Add task"
     document.getElementById("0").innerText= "save"
 }
