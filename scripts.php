@@ -4,7 +4,6 @@
     //SESSSION IS A WAY TO STORE DATA TO BE USED ACROSS MULTIPLE PAGES
     session_start();
 
-    $tasks= array();
 //ROUTING
 getTasks();
 if(isset($_POST['save']))        saveTask();
@@ -149,5 +148,10 @@ function getTasks()
     }
     function countDone(){
         echo countStatus(3);
+    }
+
+    function ondropInToDo($id){
+        $req = "UPDATE `tasks` SET `status_id` = 3 where id = $id";
+        mysqli_query($GLOBALS['conn'], $req);
     }
 

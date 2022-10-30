@@ -7,7 +7,7 @@
 	<meta charset="utf-8" />
 	<title>YouCode | Scrum Board</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-	<meta content="" name="description" />
+	<meta content="Scrum board, scrum, board, table " name="description" />
 	<meta content="" name="author" />
 	
 	<!-- ================== BEGIN core-css ================== -->
@@ -38,7 +38,7 @@
 					<!-- END page-header -->
 				</div>
 
-				<div class="">
+				<div>
 					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" onclick="resetForm()" id="ourColorButton" type="button" data-toggle="modal" data-target="#save-tasks" >
 						<i class="bx bx-plus"></i>
 						<span class="d-none d-md-inline">
@@ -53,7 +53,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header bg-teal-900 rounded-lg d-flex justify-content-between">
-							<h4 class="">To do (<span id="to-do-tasks-count"><?php countToDo()?></span>)</h4>
+							<h4 >To do (<span id="to-do-tasks-count"><?php countToDo()?></span>)</h4>
                             <form action="" method="post">
                                 <button type="submit" name="getTasks" class="btn  rounded-3 text-white" ><i class="fa fa-refresh fa-xl"></i></button>
                             </form>
@@ -71,10 +71,10 @@
                                              <i class="bi bi-exclamation-octagon bx-xs text-red-700"></i>
                                          </div>
                                          <div class="col-11 text-start">
-                                             <div class=""><?=$GLOBALS['tasks'][$i]['title']?></div>
-                                             <div class="">
+                                             <div ><?=$GLOBALS['tasks'][$i]['title']?></div>
+                                             <div >
                                                  <div class="text-black-100">#<?=$GLOBALS['tasks'][$i]['id']?> created in <?=$GLOBALS['tasks'][$i]['date']?>.</div>
-                                                 <div class="" title="<?=$GLOBALS['tasks'][$i]['description']?>">
+                                                 <div  title="<?=$GLOBALS['tasks'][$i]['description']?>">
                                                      <?php echo (strlen($GLOBALS['tasks'][$i]['description']) > 80)? substr($GLOBALS['tasks'][$i]['description'], 0, 70)."..." : $GLOBALS['tasks'][$i]['description'];   ?>
                                                  </div>
                                              </div>
@@ -95,7 +95,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header">
-							<h4 class="">In Progress (<span id="in-progress-tasks-count"><?php countInProgres()?></span>)</h4>
+							<h4 >In Progress (<span id="in-progress-tasks-count"><?php countInProgres()?></span>)</h4>
 
 						</div>
 						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropInProgress(event)" ondragleave="onDragLeave()">
@@ -110,10 +110,10 @@
                                             <i class="fa fa-spinner fa-spin	 bx-xs text-primary mt-3 "></i>
                                         </div>
                                         <div class="col-11 text-start">
-                                            <div class=""><?=$GLOBALS['tasks'][$i]['title']?></div>
-                                            <div class="">
+                                            <div ><?=$GLOBALS['tasks'][$i]['title']?></div>
+                                            <div >
                                                 <div class="text-muted">#<?=$GLOBALS['tasks'][$i]['id']?> created in <?=$GLOBALS['tasks'][$i]['date']?>.</div>
-                                                <div class="" title="<?=$GLOBALS['tasks'][$i]['description']?>">
+                                                <div  title="<?=$GLOBALS['tasks'][$i]['description']?>">
                                                     <?php echo (strlen($GLOBALS['tasks'][$i]['description']) > 80)? substr($GLOBALS['tasks'][$i]['description'], 0, 70)."..." : $GLOBALS['tasks'][$i]['description'];   ?>
                                                 </div>
                                             </div>
@@ -133,7 +133,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header">
-							<h4 class="">Done (<span id="done-tasks-count"><?php countDone()?></span>)</h4>
+							<h4 >Done (<span id="done-tasks-count"><?php countDone()?></span>)</h4>
 						</div>
 						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropDone(event)" ondragleave="onDragLeave()">
 							<!-- DONE TASKS HERE -->
@@ -146,10 +146,10 @@
                                                 <i class="bx bx-check-circle bx-sm text-green mt-3"></i>
                                             </div>
                                             <div class="col-11 text-start">
-                                                <div class=""><?=$GLOBALS['tasks'][$i]['title']?></div>
-                                                <div class="">
+                                                <div ><?=$GLOBALS['tasks'][$i]['title']?></div>
+                                                <div >
                                                     <div class="text-black-100">#<?=$GLOBALS['tasks'][$i]['id']?> created in <?=$GLOBALS['tasks'][$i]['date']?>.</div>
-                                                    <div class="" title="<?=$GLOBALS['tasks'][$i]['description']?>">
+                                                    <div  title="<?=$GLOBALS['tasks'][$i]['description']?>">
                                                         <?php echo (strlen($GLOBALS['tasks'][$i]['description']) > 80)? substr($GLOBALS['tasks'][$i]['description'], 0, 70)."..." : $GLOBALS['tasks'][$i]['description'];   ?>
                                                     </div>
                                                 </div>
@@ -254,7 +254,6 @@
 	<script src="assets/js/app.min.js"></script>
     <script src="assets/js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
 	<!-- ================== END core-js ================== -->
 </body>

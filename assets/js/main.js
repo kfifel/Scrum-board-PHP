@@ -1,57 +1,11 @@
 // --------------------------- Main code ------------------------------------
-const userStroys = new Map()
-var id = 0;
-let toDoCount = 0;
-let inProgressCount = 0;
-let doneCount = 0;
 
-/*
-    for(let task of tasks){
-        userStroys.set(++id,task)
-    }
-*/
-    updateDataInHtml();
-
-function save(idAModifier){
-    let newData = formData(idAModifier)
-    if(typeof idAModifier  == "undefined") {
-        if (userStroys.set(newData.id, newData)) {
-            addUserStory(newData)
-            document.getElementById('closePopup').click()
-            onSuccess()
-        }
-    }else {
-                if (userStroys.has(idAModifier)) {
-                    userStroys.set(idAModifier, newData)
-                    updateDataInHtml();
-                    $('#exampleModal').modal('hide');
-                }else{
-                    onError();
-                }
-        }
-}
 
 function resetForm(){
     $("#form").trigger( "reset");
     document.getElementById("0").setAttribute("name", "save");
     document.getElementById("headerH5").innerText = "Add task"
     document.getElementById("0").innerText= "save"
-}
-
-function addUserStory(userStory) {
-    document.getElementById('to-do-tasks-count').innerText = toDoCount;
-    document.getElementById('in-progress-tasks-count').innerText = inProgressCount;
-    document.getElementById('done-tasks-count').innerText = doneCount;
-}
-
-function updateDataInHtml(){
-
-    toDoCount = 0;
-    inProgressCount = 0;
-    doneCount = 0;
-    for(let [key ,userStory] of userStroys){
-            addUserStory(userStory)
-    }
 }
 
 function editUserStory(id){
