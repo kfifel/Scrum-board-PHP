@@ -9,7 +9,7 @@
 getTasks();
 if(isset($_POST['save']))        saveTask();
 if(isset($_POST['update']))      updateTask();
-if(isset($_POST['delete']))      deleteTask();
+if(isset($_GET['delete']))      deleteTask();
 
 
 
@@ -80,8 +80,16 @@ function getTasks()
     {
         //CODE HERE
         //SQL DELETE
-        $_SESSION['message'] = "Task has been deleted successfully !";
-		header('location: index.php');
+        $id = (int) $_GET['delete'];
+        if(!preg_match('#[^0-9]#',$id)){
+            $req = "DELETE FROM tasks WHERE  id = $id";
+            mysqli_query($GLOBALS['conn'], $req);
+            $_SESSION['message'] = "Task has been deleted successfully !";
+            header('location: index.php');
+        }else{
+            $_SESSION['message'] = "Error has occurred!";
+            header('location: index.php');
+        }
     }
 
     function getFormData(){
