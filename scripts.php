@@ -23,7 +23,9 @@ function getTasks()
                 FROM tasks
                     join status on tasks.status_id = status.id
                     join types on tasks.type_id = 	types.id
-                    join priorities	 on tasks.priority_id = priorities.id";
+                    join priorities	 on tasks.priority_id = priorities.id 
+                    ORDER by id asc
+                    ";
         $res =  mysqli_query($GLOBALS['conn'], $req);
 
         while( $tasks = mysqli_fetch_assoc( $res)){
@@ -58,13 +60,13 @@ function getTasks()
         if(isset($_GET['id'])){
             $id = (int) $_GET['id'];
             $task = getFormData();
-            $task['type']=(int)$task['type'];
-            $task['priority'] = (int) $task['priority'];
-            $task['status'] = (int) $task['status'];
-            var_dump($task);
-            $req = " UPDATE tasks SET  `title`='".$task['title']."',`type_id`=".$task['type'].",
-                    `priority_id`=".$task['priority'].",`status_id`=".$task['status'].",`task_datetime`='".$task['date']."',
-                    `description`='".$task['description']."' WHERE `id` = $id";
+            $task[1]=(int)$task[1];
+            $task[2] = (int) $task[2];
+            $task[3] = (int) $task[3];
+
+            $req = " UPDATE tasks SET  `title`='".$task[0]."',`type_id`=".$task[1].",
+                    `priority_id`=".$task[2].",`status_id`=".$task[3].",`task_datetime`='".$task[4]."',
+                    `description`='".$task[5]."' WHERE `id` = $id";
             $res = mysqli_query($GLOBALS['conn'], $req);
             if($res){
                 $_SESSION['message'] = "Task has been updated successfully !";
@@ -102,12 +104,12 @@ function getTasks()
         settype($status, 'integer');
 
         return array(
-            'title'=>mysqli_real_escape_string($GLOBALS['conn'], $_POST['title'] ),
-            'type'=>$type,
-            'priority'=>$priority,
-            'status'=>$status,
-            'date'=>mysqli_real_escape_string($GLOBALS['conn'], $_POST['date'] ),
-            'description'=>mysqli_real_escape_string($GLOBALS['conn'], $_POST['description'] )
+            mysqli_real_escape_string($GLOBALS['conn'], $_POST['title'] ),
+            $type,
+            $priority,
+            $status,
+            mysqli_real_escape_string($GLOBALS['conn'], $_POST['date'] ),
+            mysqli_real_escape_string($GLOBALS['conn'], $_POST['description'] )
         );
     }
 
