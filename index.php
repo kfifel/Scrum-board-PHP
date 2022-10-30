@@ -39,7 +39,7 @@
 				</div>
 
 				<div class="">
-					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" id="ourColorButton" type="button" data-toggle="modal" data-target="#save-tasks" >
+					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" onclick="resetForm()" id="ourColorButton" type="button" data-toggle="modal" data-target="#save-tasks" >
 						<i class="bx bx-plus"></i>
 						<span class="d-none d-md-inline">
 							Add task
@@ -50,13 +50,13 @@
 			</div>
 			
 			<div class="row">
-                <form action="" method="post">
-                    <button type="submit" name="getTasks" class="btn  rounded-3 text-primary" id="0" ><i class="fa fa-refresh fa-xl"></i></button>
-                </form>
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
-						<div class="card-header bg-teal-900 rounded-lg">
+						<div class="card-header bg-teal-900 rounded-lg d-flex justify-content-between">
 							<h4 class="">To do (<span id="to-do-tasks-count"><?php countToDo()?></span>)</h4>
+                            <form action="" method="post">
+                                <button type="submit" name="getTasks" class="btn  rounded-3 text-white" ><i class="fa fa-refresh fa-xl"></i></button>
+                            </form>
 
 						</div>
 						<div class="card-body" id="to-do-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropToDo(event)" ondragleave="onDragLeave()">
@@ -195,7 +195,7 @@
 					<form id="form" action="" method="post">
 						<div class="form-group">
 							<label for="title" class="col-form-label">Title:</label>
-							<input type="text" class="form-control" name="title" id="title" value=""<?=@$GLOBALS['task'][0]['title']?>""  placeholder="title">
+							<input type="text" class="form-control" name="title" id="title"  placeholder="title">
 						</div>
 						<div class="form-group">
 							<div class="form-check mt-2">
@@ -237,7 +237,7 @@
 						</div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="close" onclick="closePopup()">Cancel</button>
-                            <button type="submit" name="save" class="btn pink text-white" id="0" >Save</button>
+                            <button type="submit" name="save" class="btn pink text-white" id="0"  >Save</button>
                         </div>
 					</form>
 				</div>
@@ -263,16 +263,27 @@
 <?php
 if(isset($_GET['id'])){
     editTask();
-    echo '<pre>';
-    print_r($GLOBALS['task'][0]);
-    echo '</pre>';
    ?>
         <script>
-            document.getElementById('headerH5').innerText='Update task';
             document.getElementById('ourColorButton').click();
+            document.getElementById('headerH5').innerText= "Update task";
+            document.getElementById("0").setAttribute("name", "update");
+            document.getElementById("0").innerText= "Update";
 
-            //document.getElementById('title').value = "<?php echo $GLOBALS['task'][0]['title']?>";
-            //document.getElementById('type').value = "<?php echo $GLOBALS['task'][0]['type']?>";
+            document.getElementById('title').value = "<?php echo $GLOBALS['task'][0]['title']?>";
+            <?php
+                if($GLOBALS['task'][0]['type'] == 1)
+                {
+            ?>
+            document.getElementById('typeFeature').checked = true;
+            <?php
+                }else if($GLOBALS['task'][0]['type'] == 1){
+            ?>
+            document.getElementById('typeBug').checked = true;
+            <?php
+                }
+            ?>
+
             document.getElementById('Status').value = "<?=$GLOBALS['task'][0]['status']?>";
             document.getElementById('Priority').value = "<?=$GLOBALS['task'][0]['priority']?>";
             document.getElementById('Date').value = "<?=$GLOBALS['task'][0]['date']?>";
