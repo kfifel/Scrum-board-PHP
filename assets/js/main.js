@@ -65,7 +65,7 @@ function editUserStory(id){
         confirmButtonColor: '#d33',
         denyButtonColor: '#38c00b',
         cancelButtonColor: '#3085d6',
-        denyButtonText: "<a href='../../index.php?id="+id+"'>Edit</a>",
+        denyButtonText: "Edit",
         confirmButtonText: 'delete!'
     }).then(async (result) => {
         if (result.isConfirmed) {
@@ -79,8 +79,7 @@ function editUserStory(id){
                 confirmButtonText: 'delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    userStroys.delete(id)
-                    updateDataInHtml()
+                    window.location.href="index.php?delete="+id;
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',
@@ -95,25 +94,7 @@ function editUserStory(id){
                 'error'
             )
         } else if (result.isDenied) {
-
-                document.getElementById("headerH5").innerText = 'Update task'
-                document.getElementById("0").innerText= "Update"
-
-                //det date selected
-                document.getElementById("title").value = userStorySelect.title
-                if(userStorySelect.type === 'Bug')
-                    document.getElementById('typeBug').checked = true;
-                else
-                document.getElementById('typeFeature').checked = true;
-                document.getElementById("Priority").value = userStorySelect.priority
-                document.getElementById("Status").value= userStorySelect.status
-                document.getElementById("Date").value= userStorySelect.date
-                document.getElementById("Description").value= userStorySelect.description
-
-
-                document.getElementById("0").setAttribute("onclick", "save("+userStorySelect.id+")")
-                $('#exampleModal').modal('show');
-
+            window.location.href="index.php?id="+id;
             }
 
     })
