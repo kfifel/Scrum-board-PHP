@@ -55,8 +55,25 @@ function getTasks()
     {
         //CODE HERE
         //SQL UPDATE
-        $_SESSION['message'] = "Task has been updated successfully !";
-		header('location: index.php');
+        if(isset($_GET['id'])){
+            $id = (int) $_GET['id'];
+            $task = getFormData();
+            $task['type']=(int)$task['type'];
+            $task['priority'] = (int) $task['priority'];
+            $task['status'] = (int) $task['status'];
+            var_dump($task);
+            $req = " UPDATE tasks SET  `title`='".$task['title']."',`type_id`=".$task['type'].",
+                    `priority_id`=".$task['priority'].",`status_id`=".$task['status'].",`task_datetime`='".$task['date']."',
+                    `description`='".$task['description']."' WHERE `id` = $id";
+            $res = mysqli_query($GLOBALS['conn'], $req);
+            if($res){
+                $_SESSION['message'] = "Task has been updated successfully !";
+                header('location: index.php');
+            }else{
+                $_SESSION['message'] = "Error with updating your tasks Error is accurid  !";
+                header('location: index.php');
+            }
+        }
     }
 
     function deleteTask()
@@ -77,12 +94,12 @@ function getTasks()
         settype($status, 'integer');
 
         return array(
-            mysqli_real_escape_string($GLOBALS['conn'], $_POST['title'] ),
-            $type,
-            $priority,
-            $status,
-            mysqli_real_escape_string($GLOBALS['conn'], $_POST['date'] ),
-            mysqli_real_escape_string($GLOBALS['conn'], $_POST['description'] )
+            'title'=>mysqli_real_escape_string($GLOBALS['conn'], $_POST['title'] ),
+            'type'=>$type,
+            'priority'=>$priority,
+            'status'=>$status,
+            'date'=>mysqli_real_escape_string($GLOBALS['conn'], $_POST['date'] ),
+            'description'=>mysqli_real_escape_string($GLOBALS['conn'], $_POST['description'] )
         );
     }
 
@@ -97,12 +114,14 @@ function getTasks()
             $res =  mysqli_query($GLOBALS['conn'], $req);
             return mysqli_fetch_assoc( $res);
 
+        }else{
+            $_SESSION['message'] = 'id not define';
+            return null;
         }
     }
 
     function editTask(){
         $id = $_GET['id'];
-
         $GLOBALS['task'][] = getTasksById($id);
     }
 
