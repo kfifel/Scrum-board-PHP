@@ -53,7 +53,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header bg-teal-900 rounded-lg d-flex justify-content-between">
-							<h4 >To do (<span id="to-do-tasks-count"><?php countToDo()?></span>)</h4>
+							<h4 >To do (<span id="to-do-tasks-count"><?php countStatus(1)?></span>)</h4>
                             <form action="" method="post">
                                 <button type="submit" name="getTasks" class="btn  rounded-3 text-white" ><i class="fa fa-refresh fa-xl"></i></button>
                             </form>
@@ -66,7 +66,7 @@
                              for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
                                  if($GLOBALS['tasks'][$i]['status'] === 'to do'){
                                      ?>
-                                     <button id="${userStory.id} " onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-black rounded-1 mt-1 pb-2" draggable="true">
+                                     <button id="<?=$GLOBALS['tasks'][$i]['id']?>" onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-black rounded-1 mt-1 pb-2" draggable="true">
                                          <div class="col-1">
                                              <i class="bi bi-exclamation-octagon bx-xs text-red-700"></i>
                                          </div>
@@ -95,7 +95,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header">
-							<h4 >In Progress (<span id="in-progress-tasks-count"><?php countInProgres()?></span>)</h4>
+							<h4 >In Progress (<span id="in-progress-tasks-count"><?php countStatus(2)?></span>)</h4>
 
 						</div>
 						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropInProgress(event)" ondragleave="onDragLeave()">
@@ -105,7 +105,7 @@
                             for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
                                 if($GLOBALS['tasks'][$i]['status'] === 'in progress'){
                                 ?>
-                                    <button id=" " onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-blue rounded-1 pb-2 mt-1" draggable="true">
+                                    <button id="<?=$GLOBALS['tasks'][$i]['id']?>"  onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-blue rounded-1 pb-2 mt-1" draggable="true">
                                         <div class="col-1">
                                             <i class="fa fa-spinner fa-spin	 bx-xs text-primary mt-3 "></i>
                                         </div>
@@ -133,15 +133,15 @@
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header">
-							<h4 >Done (<span id="done-tasks-count"><?php countDone()?></span>)</h4>
+							<h4 >Done (<span id="done-tasks-count"><?php countStatus(3)?></span>)</h4>
 						</div>
-						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropDone(event)" ondragleave="onDragLeave()">
+						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropDone(event)"" ondragleave="onDragLeave()">
 							<!-- DONE TASKS HERE -->
                             <?php
                                 for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
                                     if($GLOBALS['tasks'][$i]['status'] === 'done'){
                                         ?>
-                                        <button id="${userStory.id} " onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-green rounded-1 pb-2 mt-1" draggable="true">
+                                        <button id="<?=$GLOBALS['tasks'][$i]['id']?>" onclick="editUserStory(<?=$GLOBALS['tasks'][$i]['id']?>)" class="d-flex userStoryCard w-100 alert-green rounded-1 pb-2 mt-1" draggable="true">
                                             <div class="col-1">
                                                 <i class="bx bx-check-circle bx-sm text-green mt-3"></i>
                                             </div>

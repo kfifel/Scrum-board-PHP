@@ -1,6 +1,31 @@
 // --------------------------- Main code ------------------------------------
 
+function getxhr(){
+    try{
+        xhr = new XMLHttpRequest();
+    }catch (e){
+        try{
+            xhr= new ActiveXObject('mecrosoft.XMLHTTP');
+        }catch (e1){
+            alert('Error is occurred ');
+        }
+    }
+    return xhr;
+}
+function ajaxing(id, status){
+    xhr = getxhr();
 
+    alert(id+ ' ' + status)
+    xhr.onreadystatechange = function (){
+        if(xhr.readyState == 4 && xhr.status == 200){
+
+        }
+    }
+        xhr.open('post', 'scripts.php', true);
+        xhr.setRequestHeader('tasks', 'application/scrum-board');
+        xhr.send(id, status);
+
+}
 function resetForm(){
     $("#form").trigger( "reset");
     document.getElementById("0").setAttribute("name", "save");
@@ -54,12 +79,6 @@ function editUserStory(id){
     })
 }
 
-function findById(id){
-    for(let [key ,userStory] of userStroys){
-        if(key === id)
-            return userStory;
-    }
-}
 
 function onSuccess(){
     Swal.fire({
@@ -93,30 +112,24 @@ function onDragStart(e){
 function onDragOver(e){
     return false
 }
+function getIdOnDrop(e){
+    return parseInt(e.dataTransfer.getData("text"));
+}
 function dropToDo(e){
-    ob = parseInt(e.dataTransfer.getData("text"))
-    let data = findById(ob)
-    data.status = "to do"
-    userStroys.set(ob, data)
-    updateDataInHtml()
+    ob = parseInt(e.dataTransfer.getData("text"));
+    ajaxing(ob, 1);
     e.stopPropagation()
 }
 function dropInProgress(e){
     ob = parseInt(e.dataTransfer.getData("text"))
-    let data = findById(ob)
-    data.status = 'in progress'
-    userStroys.set(ob, data)
-    updateDataInHtml()
-    e.stopPropagation()
-}
-function dropDone(e){
-    ob = parseInt(e.dataTransfer.getData("text"))
-    let data = findById(ob)
-    data.status = "done"
-    userStroys.set(ob, data)
-    updateDataInHtml()
+    ajaxing(ob, 2);
     e.stopPropagation()
 }
 function onDragLeave(e){
 
+}
+function dropDone(e){
+    ob = parseInt(e.dataTransfer.getData("text"))
+    ajaxing(ob, 3);
+    e.stopPropagation()
 }
