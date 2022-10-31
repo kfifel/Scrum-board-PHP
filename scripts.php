@@ -10,7 +10,7 @@ if(isset($_POST['save']))        saveTask();
 if(isset($_POST['update']))      updateTask();
 if(isset($_GET['delete']))      deleteTask();
 if(isset($_POST['id']) && isset($_POST['status'])){
-    echo print($_POST);
+    echo print_r($_POST);
     die;
 }
 //onDrop();

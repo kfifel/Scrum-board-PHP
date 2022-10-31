@@ -17,8 +17,8 @@ function ajaxing(id, status){
 
     alert(id+ ' ' + status)
     xhr.onreadystatechange = function (){
-        if(xhr.readyState == 4 && xhr.status == 200){
-
+        if(xhr.readyState === 4 && xhr.status === 200){
+            alert('sa fonction');
         }
     }
         xhr.open('post', 'scripts.php', true);
@@ -109,7 +109,8 @@ function onDragStart(e){
     e.dataTransfer.effectAllowed = 'move'
     e.dataTransfer.setData('text', e.target.getAttribute("id"))
 }
-function onDragOver(e){
+function onDragOver(){
+
     return false
 }
 function getIdOnDrop(e){

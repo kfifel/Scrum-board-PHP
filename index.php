@@ -28,7 +28,7 @@
 			<div class="d-flex justify-content-between">
 				<div class="divTitle">
 					<ol class="breadcrumb">
-						<li class=" breadcrumb-item"><a href="javascript:;">Home</a></li>
+						<li class=" breadcrumb-item"><a href="index.php">Home</a></li>
 						<li class=" breadcrumb-item active">Scrum Board </li>
 					</ol>
 					<!-- BEGIN page-header -->
@@ -59,7 +59,7 @@
                             </form>
 
 						</div>
-						<div class="card-body" id="to-do-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropToDo(event)" ondragleave="onDragLeave()">
+						<div class="card-body" id="to-do-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver()" ondrop="return dropToDo(event)" ondragleave="onDragLeave()">
 							<!-- TO DO TASKS HERE -->
                             <?php
 
@@ -98,7 +98,7 @@
 							<h4 >In Progress (<span id="in-progress-tasks-count"><?php countStatus(2)?></span>)</h4>
 
 						</div>
-						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropInProgress(event)" ondragleave="onDragLeave()">
+						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver()" ondrop="return dropInProgress(event)" ondragleave="onDragLeave()">
 							<!-- IN PROGRESS TASKS HERE -->
 
                             <?php
@@ -135,7 +135,7 @@
 						<div class="card-header">
 							<h4 >Done (<span id="done-tasks-count"><?php countStatus(3)?></span>)</h4>
 						</div>
-						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropDone(event)"" ondragleave="onDragLeave()">
+						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver()" ondrop="return dropDone(event)"" ondragleave="onDragLeave()">
 							<!-- DONE TASKS HERE -->
                             <?php
                                 for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
@@ -175,7 +175,6 @@
 		<!-- BEGIN scroll-top-btn -->
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
 		<!-- END scroll-top-btn -->
-	</div>
 	<!-- END #app -->
 	
 	<!-- TASK MODAL -->
