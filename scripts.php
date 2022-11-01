@@ -6,10 +6,11 @@
 
 //ROUTING
 getTasks();
+
 if(isset($_POST['save']))        saveTask();
 if(isset($_POST['update']))      updateTask();
 if(isset($_GET['delete']))      deleteTask();
-
+if(isset($_GET['id']) && isset($_GET['status'])) onDrop();
 
 
 
@@ -30,6 +31,7 @@ function getTasks()
         while( $tasks = mysqli_fetch_assoc( $res)){
             $GLOBALS['tasks'][] = $tasks;
         }
+        return $GLOBALS['tasks'];
     }
 
 
@@ -138,20 +140,13 @@ function getTasks()
         $req = "SELECT count(id) as numberOf FROM tasks WHERE status_id = $id";
         $res = mysqli_query($GLOBALS['conn'], $req);
         $data=mysqli_fetch_assoc($res);
-        return $data['numberOf'];
-    }
-    function countToDo(){
-        echo countStatus(1);
-    }
-    function countInProgres(){
-        echo countStatus(2);
-    }
-    function countDone(){
-        echo countStatus(3);
+        echo $data['numberOf'];
     }
 
-    function ondropInToDo($id){
-        $req = "UPDATE `tasks` SET `status_id` = 3 where id = $id";
+    function onDrop(){
+        $id = (int)$_GET['id'];
+        $status = (int) $_GET['status'];
+        $req = "UPDATE `tasks` SET `status_id` = $status where id = $id";
         mysqli_query($GLOBALS['conn'], $req);
+        header("location: index.php");
     }
-
