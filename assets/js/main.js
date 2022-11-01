@@ -15,15 +15,10 @@ function getxhr(){
 function ajaxing(id, status){
     xhr = getxhr();
 
-    alert(id+ ' ' + status)
-    xhr.onreadystatechange = function (){
-        if(xhr.readyState === 4 && xhr.status === 200){
-            alert('sa fonction');
-        }
-    }
-        xhr.open('post', 'scripts.php', true);
-        xhr.setRequestHeader('tasks', 'application/scrum-board');
-        xhr.send(id, status);
+        xhr.open('GET', 'http://localhost:8080/scripts.php?id='+id+'&status='+status, true);
+  //      xhr.setRequestHeader('tasks', 'application/scrum-board');
+        xhr.send('id='+id, 'status='+status);
+        window.location.href = "http://localhost:8080/index.php";
 
 }
 function resetForm(){

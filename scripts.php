@@ -6,14 +6,11 @@
 
 //ROUTING
 getTasks();
+
 if(isset($_POST['save']))        saveTask();
 if(isset($_POST['update']))      updateTask();
 if(isset($_GET['delete']))      deleteTask();
-if(isset($_POST['id']) && isset($_POST['status'])){
-    echo print_r($_POST);
-    die;
-}
-//onDrop();
+if(isset($_GET['id']) && isset($_GET['status'])) onDrop();
 
 
 
@@ -34,6 +31,7 @@ function getTasks()
         while( $tasks = mysqli_fetch_assoc( $res)){
             $GLOBALS['tasks'][] = $tasks;
         }
+        return $GLOBALS['tasks'];
     }
 
 
@@ -146,10 +144,9 @@ function getTasks()
     }
 
     function onDrop(){
-        $id = (int)$_POST['id'];
-        $status = (int) $_POST['status'];
-        echo $id . $status;
-        die();
+        $id = (int)$_GET['id'];
+        $status = (int) $_GET['status'];
         $req = "UPDATE `tasks` SET `status_id` = $status where id = $id";
         mysqli_query($GLOBALS['conn'], $req);
+        header("location: index.php");
     }

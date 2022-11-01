@@ -75,7 +75,7 @@
                                              <div >
                                                  <div class="text-black-100">#<?=$GLOBALS['tasks'][$i]['id']?> created in <?=$GLOBALS['tasks'][$i]['date']?>.</div>
                                                  <div  title="<?=$GLOBALS['tasks'][$i]['description']?>">
-                                                     <?php echo (strlen($GLOBALS['tasks'][$i]['description']) > 80)? substr($GLOBALS['tasks'][$i]['description'], 0, 70)."..." : $GLOBALS['tasks'][$i]['description'];   ?>
+                                                     <?php (strlen($GLOBALS['tasks'][$i]['description']) > 80)? print(substr($GLOBALS['tasks'][$i]['description'], 0, 70)."...") :print( $GLOBALS['tasks'][$i]['description']);   ?>
                                                  </div>
                                              </div>
                                              <div class="mt-1">
