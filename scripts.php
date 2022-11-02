@@ -37,20 +37,23 @@ function getTasks()
 
     function saveTask()
     {
-        //CODE HERE
-        //SQL INSERT
-        $req = "INSERT INTO `tasks` (`title`, `type_id`, `priority_id`, `status_id`, `task_datetime`, `description` ) 
-                VALUES  ( ?, ?, ?, ?, ?, ?)";
-        $nvTask = getFormData();
-        $res = $GLOBALS['conn']->prepare($req);
-        $res->bind_param( "ssssss",  ...$nvTask);
+        if( !empty($_POST['title']) && !empty($_POST['date']) && !empty($_POST['description'])){
 
-        if($res->execute()){
-            $_SESSION['message'] = "Task has been added successfully !";
-            header('location: index.php');
-            echo '<script type="text/javascript"></script> ';
+            $req = "INSERT INTO `tasks` (`title`, `type_id`, `priority_id`, `status_id`, `task_datetime`, `description` ) 
+                    VALUES  ( ?, ?, ?, ?, ?, ?)";
+            $nvTask = getFormData();
+            $res = $GLOBALS['conn']->prepare($req);
+            $res->bind_param( "ssssss",  ...$nvTask);
+
+            if($res->execute()){
+                $_SESSION['message'] = "Task has been added successfully !";
+                header('location: index.php');
+                echo '<script type="text/javascript"></script> ';
+            }else{
+                $_SESSION['error'] = "Task has not been added successfully error detected ";
+            }
         }else{
-            $_SESSION['message'] = "Task has not been added successfully error detected ";
+            $_SESSION['formValidation'] = 'Please fill out the form completly';
         }
     }
 
@@ -73,7 +76,7 @@ function getTasks()
                 $_SESSION['message'] = "Task has been updated successfully !";
                 header('location: index.php');
             }else{
-                $_SESSION['message'] = "Error with updating your tasks Error is accurid  !";
+                $_SESSION['error'] = "Error with updating your tasks Error is accurid  !";
                 header('location: index.php');
             }
         }
@@ -90,7 +93,7 @@ function getTasks()
             $_SESSION['message'] = "Task has been deleted successfully !";
             header('location: index.php');
         }else{
-            $_SESSION['message'] = "Error has occurred!";
+            $_SESSION['error'] = "Error has occurred!";
             header('location: index.php');
         }
     }

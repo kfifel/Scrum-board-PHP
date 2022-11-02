@@ -6,7 +6,10 @@
 .pace {
     display: none;
 }
-
+.overBackground{
+    background-color: #dce1e7;
+    border:2px solid #5A278C;
+}
 .main-style {
     min-height: 100vh;
     background: url(../img/cover/cover-scrum-board.png) no-repeat fixed;
