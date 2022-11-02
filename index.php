@@ -11,13 +11,13 @@
 	<meta content="" name="author" />
 	
 	<!-- ================== BEGIN core-css ================== -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-	<link href="assets/css/vendor.min.css" rel="stylesheet" />
-	<link href="assets/css/default/app.min.css" rel="stylesheet" />
-	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-	<link href="assets/css/style.css" rel="stylesheet" />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="assets/css/vendor.min.css" rel="stylesheet" />
+    <link href="assets/css/default/app.min.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="assets/css/style.css" rel="stylesheet" />
 	<!-- ================== END core-css ================== -->
 </head>
 <body>
@@ -39,7 +39,7 @@
 				</div>
 
 				<div>
-					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" onclick="resetForm()" id="ourColorButton" type="button" data-toggle="modal" data-target="#save-tasks" >
+					<button class="btn btn-muted rounded-4 fw-bold ourColorButton" onclick="resetForm()" id="ourColorButton" type="button" data-bs-toggle="modal" data-bs-target="#save-tasks" >
 						<i class="bx bx-plus"></i>
 						<span class="d-none d-md-inline">
 							Add task
@@ -50,16 +50,26 @@
 			</div>
 			
 			<div class="row">
+                <?php if (isset($_SESSION['message'])): ?>
+                    <div class="alert alert-green alert-dismissible fade show">
+                        <strong>Success!</strong>
+                        <?php
+                        echo $_SESSION['message'];
+                        unset($_SESSION['message']);
+                        ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <?php endif ?>
 				<div class="col-lg-4 col-md-6 col-sm-12 ">
 					<div class="card mb-5">
 						<div class="card-header bg-teal-900 rounded-lg d-flex justify-content-between">
 							<h4 >To do (<span id="to-do-tasks-count"><?php countStatus(1)?></span>)</h4>
-                            <form action="" method="post">
-                                <button type="submit" name="getTasks" class="btn  rounded-3 text-white" ><i class="fa fa-refresh fa-xl"></i></button>
-                            </form>
+                            <div>
+                                <i class="fa fa-refresh fa-xl  <?=(count($GLOBALS['tasks'])>0 )? '': 'fa-spin' ?> "></i>
+                            </div>
 
 						</div>
-						<div class="card-body" id="to-do-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver()" ondrop="return dropToDo(event)" ondragleave="onDragLeave()">
+						<div class="card-body" id="to-do-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropToDo(event)" ondragleave="onDragLeave(event)">
 							<!-- TO DO TASKS HERE -->
                             <?php
 
@@ -75,7 +85,9 @@
                                              <div >
                                                  <div class="text-black-100">#<?=$GLOBALS['tasks'][$i]['id']?> created in <?=$GLOBALS['tasks'][$i]['date']?>.</div>
                                                  <div  title="<?=$GLOBALS['tasks'][$i]['description']?>">
-                                                     <?php (strlen($GLOBALS['tasks'][$i]['description']) > 80)? print(substr($GLOBALS['tasks'][$i]['description'], 0, 70)."...") :print( $GLOBALS['tasks'][$i]['description']);   ?>
+                                                     <div class="text-break white-space">
+                                                        <?php (strlen($GLOBALS['tasks'][$i]['description']) > 80)? print(substr($GLOBALS['tasks'][$i]['description'], 0, 70)."...") :print( $GLOBALS['tasks'][$i]['description']);   ?>
+                                                     </div>
                                                  </div>
                                              </div>
                                              <div class="mt-1">
@@ -98,7 +110,7 @@
 							<h4 >In Progress (<span id="in-progress-tasks-count"><?php countStatus(2)?></span>)</h4>
 
 						</div>
-						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver()" ondrop="return dropInProgress(event)" ondragleave="onDragLeave()">
+						<div class="card-body" id="in-progress-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropInProgress(event)" ondragleave="onDragLeave(event)">
 							<!-- IN PROGRESS TASKS HERE -->
 
                             <?php
@@ -135,7 +147,7 @@
 						<div class="card-header">
 							<h4 >Done (<span id="done-tasks-count"><?php countStatus(3)?></span>)</h4>
 						</div>
-						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver()" ondrop="return dropDone(event)"" ondragleave="onDragLeave()">
+						<div class="card-body " id="done-tasks" ondragstart="onDragStart(event)"  ondragover="return onDragOver(event)" ondrop="return dropDone(event)"" ondragleave="onDragLeave(event)">
 							<!-- DONE TASKS HERE -->
                             <?php
                                 for( $i= 0; $i <  count($GLOBALS['tasks']) ; $i++){
@@ -173,7 +185,7 @@
 		
 		
 		<!-- BEGIN scroll-top-btn -->
-		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-bs-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
 		<!-- END scroll-top-btn -->
 	<!-- END #app -->
 	
@@ -183,7 +195,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 id="headerH5">add task</h5>
-					<button type="button" class="btn close" data-dismiss="modal" aria-label="Close" onclick="closePopup()" id="closePopup">
+					<button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close" onclick="closePopup()" id="closePopup">
 						<i class="bi bi-x-lg"></i>
 					</button>
 				</div>
@@ -193,8 +205,11 @@
 					</div>
 					<form id="form" action="" method="post">
 						<div class="form-group">
-							<label for="title" class="col-form-label">Title:</label>
-							<input type="text" class="form-control" name="title" id="title"  placeholder="title">
+							<label for="title" class="form-label">Title:</label>
+							<input type="text" class="form-control" name="title" id="title"  placeholder="title" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
 						</div>
 						<div class="form-group">
 							<div class="form-check mt-2">
@@ -212,7 +227,7 @@
 						</div>
 						<div class="form-group">
 							<label for="Priority" class="col-form-label">Priority:</label>
-							<select class="form-select" name="priority" id="Priority">
+							<select class="form-select" name="priority" id="Priority" required>
 								<option value="1">High</option>
 								<option value="2">Medium</option>
 								<option value="3">Low</option>
@@ -220,7 +235,7 @@
 						</div>
 						<div class="form-group">
 							<label for="Status" class="col-form-label">Status:</label>
-							<select class="form-select" name="status" id="Status">
+							<select class="form-select" name="status" id="Status" required>
 								<option value="1">to do</option>
 								<option value="2">in progress</option>
 								<option value="3">done</option>
@@ -232,10 +247,10 @@
  						</div>
 						<div class="form-group">
 							<label for="Description" class="col-form-label">Description:</label>
-							<textarea class="form-control" name="description" id="Description"></textarea>
+							<textarea class="form-control" name="description" id="Description" required></textarea>
 						</div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="close" onclick="closePopup()">Cancel</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="close" onclick="closePopup()">Cancel</button>
                             <button type="submit" name="save" class="btn pink text-white" id="0"  >Save</button>
                         </div>
 					</form>
@@ -252,8 +267,7 @@
 	<script src="assets/data/data.js"></script>
 	<script src="assets/js/app.min.js"></script>
     <script src="assets/js/main.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 	<!-- ================== END core-js ================== -->
 </body>
 </html>
@@ -275,7 +289,7 @@ if(isset($_GET['id'])){
             ?>
             document.getElementById('typeFeature').checked = true;
             <?php
-                }else if($GLOBALS['task'][0]['type'] == 1){
+                }else if($GLOBALS['task'][0]['type'] == 2){
             ?>
             document.getElementById('typeBug').checked = true;
             <?php

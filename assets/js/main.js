@@ -104,12 +104,9 @@ function onDragStart(e){
     e.dataTransfer.effectAllowed = 'move'
     e.dataTransfer.setData('text', e.target.getAttribute("id"))
 }
-function onDragOver(){
-
+function onDragOver(e){
+    e.currentTarget.className = "card-body border border-1 border-black overBackground";
     return false
-}
-function getIdOnDrop(e){
-    return parseInt(e.dataTransfer.getData("text"));
 }
 function dropToDo(e){
     ob = parseInt(e.dataTransfer.getData("text"));
@@ -122,7 +119,7 @@ function dropInProgress(e){
     e.stopPropagation()
 }
 function onDragLeave(e){
-
+    e.currentTarget.className = "card-body";
 }
 function dropDone(e){
     ob = parseInt(e.dataTransfer.getData("text"))
