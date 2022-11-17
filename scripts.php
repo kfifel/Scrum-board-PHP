@@ -1,23 +1,21 @@
 <?php
     //INCLUDE DATABASE FILE
     include('database.php');
-    //SESSSION IS A WAY TO STORE DATA TO BE USED ACROSS MULTIPLE PAGES
+
     session_start();
 
-//ROUTING
-getTasks();
+    //ROUTING
+    getTasks();
 
-if(isset($_POST['save']))        saveTask();
-if(isset($_POST['update']))      updateTask();
-if(isset($_GET['delete']))      deleteTask();
-if(isset($_GET['id']) && isset($_GET['status'])) onDrop();
+    if(isset($_POST['save']))        saveTask();
+    if(isset($_POST['update']))      updateTask();
+    if(isset($_GET['delete']))      deleteTask();
+    if(isset($_GET['id']) && isset($_GET['status'])) onDrop();
 
 
 
 function getTasks()
     {
-        //CODE HERE
-        //SQL SELECT
         $req = "SELECT tasks.id ,  tasks.title, types.name as type, priorities.name as priority, status.name as status,
                 tasks.task_datetime as date, tasks.description
                 FROM tasks
@@ -31,7 +29,6 @@ function getTasks()
         while( $tasks = mysqli_fetch_assoc( $res)){
             $GLOBALS['tasks'][] = $tasks;
         }
-        return $GLOBALS['tasks'];
     }
 
 
@@ -59,8 +56,6 @@ function getTasks()
 
     function updateTask()
     {
-        //CODE HERE
-        //SQL UPDATE
         if(isset($_GET['id'])){
             $id = (int) $_GET['id'];
             $task = getFormData();
@@ -84,8 +79,6 @@ function getTasks()
 
     function deleteTask()
     {
-        //CODE HERE
-        //SQL DELETE
         $id = (int) $_GET['delete'];
         if(!preg_match('#[^0-9]#',$id)){
             $req = "DELETE FROM tasks WHERE  id = $id";
